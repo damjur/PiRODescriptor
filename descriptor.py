@@ -28,7 +28,8 @@ def getCircle(image,radius):
 	#DJ: nie, to usuwa puste wiersze/kolumny
 	circled = circled[:,~np.all(np.all(circled==0,axis=2),axis=0)]
 	circled = circled[~np.all(np.all(circled==0,axis=2),axis=1),:]
-	radius = np.ceil(radius)
+	# radius = np.ceil(radius)
+	radius = 32
 	return resize(circled,(2*radius,2*radius,3)),radius
 
 def getPatch(image,center):
@@ -113,6 +114,10 @@ def findDiff(d1,d2,s):
 	return min(s, np.sum(np.absolute(nd1-d2)))
 	
 def compareRectangleDes(d1, d2):
+	print(d1)
+	print()
+	print(d2)
+
 	print(d1[5])
 	m=min(d1.min(), d2.min())
 	d1 -= m
@@ -184,6 +189,7 @@ def distance(descriptor1, descriptor2):
 	dist = 0
 	dist+=compareTwoBinaryRings(descriptor1[0], descriptor2[0])
 	for i in range(1,2):
+		print(i)
 		dist+=compareRectangleDes(descriptor1[i], descriptor2[i])
 	return dist/5
 	
