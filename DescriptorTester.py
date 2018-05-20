@@ -9,6 +9,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pickle
 from tqdm import tqdm
+from sklearn.metrics import roc_auc_score
 
 import os
 import shutil
@@ -18,9 +19,9 @@ from descriptor import extract, distance, D
 # In[42]:
 
 
-HOWMANY = 10
+HOWMANY = 2
 MAX_PATCH_SIZE = 64
-N_POINTS = 20
+N_POINTS = 2
 DEBUG = False
 URL = "https://www.cs.toronto.edu/~vmnih/data/mass_roads/train/sat/index.html"
 
@@ -239,7 +240,7 @@ def getData(t):
 		X["scale"] = rx
 		Y["scale"] = ry
 	
-	
+	print(roc_auc_score(a, b))
 	return X,Y
 
 def drawPlots(X,Y,L):
