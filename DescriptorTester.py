@@ -147,7 +147,7 @@ def getData(t):
 			for k,angle in enumerate(img):
 				for j,d1 in enumerate(cimg):
 					row = []
-					for d2 in img:
+					for d2 in angle:
 						row += [distance(d1,d2)]
 					ry[k] += (np.array(row) <= row[j]*(1+epsilon)).sum() - 1
 		X["blure"] = rx
@@ -169,7 +169,7 @@ def getData(t):
 			for k,angle in enumerate(img):
 				for j,d1 in enumerate(cimg):
 					row = []
-					for d2 in img:
+					for d2 in angle:
 						row += [distance(d1,d2)]
 					ry[k] += (np.array(row) <= row[j]*(1+epsilon)).sum() - 1
 		X["jpged"] = rx
@@ -191,7 +191,7 @@ def getData(t):
 			for k,angle in enumerate(img):
 				for j,d1 in enumerate(cimg):
 					row = []
-					for d2 in img:
+					for d2 in angle:
 						row += [distance(d1,d2)]
 					ry[k] += (np.array(row) <= row[j]*(1+epsilon)).sum() - 1
 		X["rotat"] = rx
@@ -214,7 +214,7 @@ def getData(t):
 			for k,angle in enumerate(img):
 				for j,d1 in enumerate(cimg):
 					row = []
-					for d2 in img:
+					for d2 in angle:
 						row += [distance(d1,d2)]
 					ry[k] += (np.array(row) <= row[j]*(1+epsilon)).sum() - 1
 		X["scale"] = rx

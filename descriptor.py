@@ -182,7 +182,6 @@ def extract(image, keypoints):
 
 def distance(descriptor1, descriptor2):
 	dist = 0
-
 	dist+=compareTwoBinaryRings(descriptor1[0], descriptor2[0])
 	for i in range(1,2):
 		dist+=compareRectangleDes(descriptor1[i], descriptor2[i])
