@@ -114,11 +114,6 @@ def findDiff(d1,d2,s):
 	return min(s, np.sum(np.absolute(nd1-d2)))
 	
 def compareRectangleDes(d1, d2):
-	print(d1)
-	print()
-	print(d2)
-
-	print(d1[5])
 	m=min(d1.min(), d2.min())
 	d1 -= m
 	d2 -= m
@@ -187,11 +182,12 @@ def extract(image, keypoints):
 
 def distance(descriptor1, descriptor2):
 	dist = 0
-	dist+=compareTwoBinaryRings(descriptor1[0], descriptor2[0])
-	for i in range(1,2):
+	for i in range(1,5):
 		print(i)
 		dist+=compareRectangleDes(descriptor1[i], descriptor2[i])
-	return dist/5
+	dist/=4
+	dist+=compareTwoBinaryRings(descriptor1[0], descriptor2[0])
+	return dist/2
 	
 if __name__=="__main__":
 	image = data.astronaut()[:-1,:-1]
