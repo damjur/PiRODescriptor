@@ -113,6 +113,7 @@ def findDiff(d1,d2,s):
 	return min(s, np.sum(np.absolute(nd1-d2)))
 	
 def compareRectangleDes(d1, d2):
+	print(d1[5])
 	m=min(d1.min(), d2.min())
 	d1 -= m
 	d2 -= m
@@ -180,16 +181,21 @@ def extract(image, keypoints):
 	return [extractForKeypoint(blurred,keypoint) for keypoint in keypoints]
 
 def distance(descriptor1, descriptor2):
-	return 1
+	dist = 0
+
+	dist+=compareTwoBinaryRings(descriptor1[0], descriptor2[0])
+	for i in range(1,2):
+		dist+=compareRectangleDes(descriptor1[i], descriptor2[i])
+	return dist/5
 	
 if __name__=="__main__":
 	image = data.astronaut()[:-1,:-1]
 	plt.imshow(image)
 	w=extract(image,[[100,100],[121,101],[100,99]])
-	print("binary",	compareTwoBinaryRings(w[0][0],w[1][0]), compareTwoBinaryRings(w[0][0],w[2][0]))
-#	 print("rectangle", compareRectangleDes(w[0][5], w[1][5]), compareRectangleDes(w[0][5], w[2][5]))
-#	 print("rectangle", compareRectangleDes(w[0][5], w[1][5]), compareRectangleDes(w[0][5], w[2][5]))
-#	 print("rectangle", compareRectangleDes(w[0][6], w[1][6]), compareRectangleDes(w[0][6], w[2][6]))
+	# print("binary",	compareTwoBinaryRings(w[0][0],w[1][0]), compareTwoBinaryRings(w[0][0],w[2][0]))
+	# print("rectangle", compareRectangleDes(w[0][1], w[1][1]), compareRectangleDes(w[0][1], w[2][1]))
+	# print("rectangle", compareRectangleDes(w[0][2], w[1][2]), compareRectangleDes(w[0][2], w[2][2]))
+	# print("rectangle", compareRectangleDes(w[0][3], w[1][3]), compareRectangleDes(w[0][3], w[2][3]))
 	
 	
 
