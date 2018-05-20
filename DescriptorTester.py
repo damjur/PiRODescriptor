@@ -18,9 +18,9 @@ from descriptor import extract, distance, D
 # In[42]:
 
 
-HOWMANY = 2
+HOWMANY = 10
 MAX_PATCH_SIZE = 64
-N_POINTS = 2
+N_POINTS = 20
 DEBUG = False
 URL = "https://www.cs.toronto.edu/~vmnih/data/mass_roads/train/sat/index.html"
 
@@ -32,6 +32,7 @@ def generatePointsForOne(image):
 	height,width,_ = image.shape
 	height -= MAX_PATCH_SIZE/2
 	width -= MAX_PATCH_SIZE/2
+	print(N_POINTS)
 	ys = np.random.randint(MAX_PATCH_SIZE/2,height,size=(N_POINTS))
 	xs = np.random.randint(MAX_PATCH_SIZE/2,width,size=(N_POINTS))
 	return [np.dstack((ys,xs))[0]]
@@ -75,7 +76,7 @@ def getScales(images,points):
 	for img,pp in zip(images,points):
 		r   += [{"img":img,"points":pp}]
 		
-	for s in tqdm(np.arange(1.25,3.75,0.25)):
+	for s in tqdm(np.arange(1.05,1.55,0.1)):
 		for img,pp in zip(images,points):
 			rimg = cv2.resize(img,None,fx=s,fy=s)
 			rpp = s*pp
@@ -129,6 +130,8 @@ def getData(t):
 	epsilon = 0.05
 	X = {}
 	Y = {}
+	a=[]
+	b=[]
 	
 	if "blure" in t:
 		rds = []
@@ -147,8 +150,12 @@ def getData(t):
 			for k,angle in enumerate(img):
 				for j,d1 in enumerate(cimg):
 					row = []
-					for d2 in angle:
-						row += [distance(d1,d2)]
+					for l,d2 in enumerate(angle):
+						if j==l:a.append(0)
+						else:a.append(1)
+						di = distance(d1,d2)
+						row += [di]
+						b.append(di)
 					ry[k] += (np.array(row) <= row[j]*(1+epsilon)).sum() - 1
 		X["blure"] = rx
 		Y["blure"] = ry
@@ -169,8 +176,12 @@ def getData(t):
 			for k,angle in enumerate(img):
 				for j,d1 in enumerate(cimg):
 					row = []
-					for d2 in angle:
-						row += [distance(d1,d2)]
+					for l,d2 in enumerate(angle):
+						if j==l:a.append(0)
+						else:a.append(1)
+						di = distance(d1,d2)
+						row += [di]
+						b.append(di)
 					ry[k] += (np.array(row) <= row[j]*(1+epsilon)).sum() - 1
 		X["jpged"] = rx
 		Y["jpged"] = ry
@@ -191,8 +202,12 @@ def getData(t):
 			for k,angle in enumerate(img):
 				for j,d1 in enumerate(cimg):
 					row = []
-					for d2 in angle:
-						row += [distance(d1,d2)]
+					for l,d2 in enumerate(angle):
+						if j==l:a.append(0)
+						else:a.append(1)
+						di = distance(d1,d2)
+						row += [di]
+						b.append(di)
 					ry[k] += (np.array(row) <= row[j]*(1+epsilon)).sum() - 1
 		X["rotat"] = rx
 		Y["rotat"] = ry
@@ -214,8 +229,12 @@ def getData(t):
 			for k,angle in enumerate(img):
 				for j,d1 in enumerate(cimg):
 					row = []
-					for d2 in angle:
-						row += [distance(d1,d2)]
+					for l,d2 in enumerate(angle):
+						if j==l:a.append(0)
+						else:a.append(1)
+						di = distance(d1,d2)
+						row += [di]
+						b.append(di)
 					ry[k] += (np.array(row) <= row[j]*(1+epsilon)).sum() - 1
 		X["scale"] = rx
 		Y["scale"] = ry
